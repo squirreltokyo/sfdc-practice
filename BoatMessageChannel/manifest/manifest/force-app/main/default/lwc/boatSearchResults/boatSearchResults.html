@@ -15,12 +15,12 @@
                 <c-boat-tile boat={boat} selected-boat-id={selectedBoatId} onboatselect={updateSelectedTile}></c-boat-tile>
               </lightning-layout-item>
             </template>
-            <!-- Spinner goes here -->
-            <template if:true={isLoading}>
-              <lightning-spinner alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
-            </template>
           </lightning-layout>
         </div>
+      </template>
+      <!-- Spinner goes here -->
+      <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
       </template>
     </lightning-tab>
     <lightning-tab label="Boat Editor">
