@@ -1,37 +1,66 @@
 <template>
   <!-- div for when there are no reviews available -->
-  <div>No reviews available</div>
+  <template if:false={reviewsToShow}>
+    <div class="slds-align_absolute-center">No reviews available</div>
+  </template>
   <!-- div for when there are reviews available -->
-  <div>
-  <!-- insert spinner -->
-    <ul class="slds-feed__list">
-      <!-- start iteration -->
-        <li class="slds-feed__item" key={boatReview.Id}>
-          <article class="slds-post">
-            <header class="slds-post__header slds-media">
-              <div class="slds-media__figure">
-                <!-- display the creator’s picture -->
-              </div>
-              <div class="slds-media__body">
-                <div class="slds-grid slds-grid_align-spread slds-has-flexi-truncate">
-                  <p>
+  <template if:true={reviewsToShow}>
+    <div class="slds-feed reviews-style slds-is-relative slds-scrollable_y">
+      <!-- insert spinner -->
+      <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+      </template>
+      <ul class="slds-feed__list">
+        <!-- start iteration -->
+        <template for:each={boatReviews} for:item="boatReview">
+          <li class="slds-feed__item" key={boatReview.Id}>
+            <article class="slds-post">
+              <header class="slds-post__header slds-media">
+                <div class="slds-media__figure">
+                  <!-- display the creator’s picture -->
+                  <lightning-avatar 
+                    variant="circle" 
+                    src={boatReview.CreatedBy.SmallPhotoUrl} 
+                    initials="AW" 
+                    fallback-icon-name="standard:user" 
+                    alternative-text={boatReview.CreatedBy.Name}  
+                    class="slds-m-right_small">
+                  </lightning-avatar>
+                </div>
+                <div class="slds-media__body">
+                  <div class="slds-grid slds-grid_align-spread slds-has-flexi-truncate">
+                    <p>
                       <!-- display creator’s name -->
-                    <span><!-- display creator’s company name --></span>
+                      <a value={boatReview.CreatedBy.Id} title={boatReview.CreatedBy.Name} data-record-id={boatReview.CreatedBy.Id} onclick={navigateToRecord}>
+                        {boatReview.CreatedBy.Name}
+                      </a>
+                      <!-- display creator’s company name -->
+                      <span>-{boatReview.CreatedBy.CompanyName}</span>
+                    </p>
+                  </div>
+                  <p class="slds-text-body_small">
+                    <!-- display created  date -->
+                    <lightning-formatted-date-time value={boatReview.CreatedDate} year="numeric" month="numeric" day="numeric"
+                      hour="2-digit" minute="2-digit" time-zone-name="short" hour12="true">
+                    </lightning-formatted-date-time>
                   </p>
                 </div>
-                <p class="slds-text-body_small">
-                  <!-- display created  date -->
+              </header>
+              <div class="slds-text-longform">
+                <!-- display Name -->
+                <p class="slds-text-title_caps">
+                  {boatReview.Name}
                 </p>
+                <!-- display Comment__c -->
+                <lightning-formatted-rich-text value={boatReview.Comment__c}></lightning-formatted-rich-text>
               </div>
-            </header>
-            <div class="slds-text-longform">
-              <p class="slds-text-title_caps"><!-- display Name --></p>
-              <!-- display Comment__c -->
-            </div>
-            <!-- display five star rating on readonly mode -->
-          </article>
-        </li>
-      <!-- end iteration -->
-    </ul>
-  </div>
+              <!-- display five star rating on readonly mode -->
+              <c-five-star-rating value={boatReview.Rating__c} read-only="true"></c-five-star-rating>
+            </article>
+          </li>
+        </template>
+        <!-- end iteration -->
+      </ul>
+    </div>
+  </template>
 </template>
