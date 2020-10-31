@@ -20,10 +20,10 @@
                   <!-- display the creator’s picture -->
                   <lightning-avatar 
                     variant="circle" 
-                    src={boatReview.CreatedBy.SmallPhotoUrl} 
-                    initials="AW" 
-                    fallback-icon-name="standard:user" 
-                    alternative-text={boatReview.CreatedBy.Name}  
+                    src={boatReview.CreatedBy.SmallPhotoUrl}
+                    initials=""
+                    fallback-icon-name="standard:user"
+                    alternative-text={boatReview.CreatedBy.Name}
                     class="slds-m-right_small">
                   </lightning-avatar>
                 </div>
@@ -31,7 +31,7 @@
                   <div class="slds-grid slds-grid_align-spread slds-has-flexi-truncate">
                     <p>
                       <!-- display creator’s name -->
-                      <a value={boatReview.CreatedBy.Id} title={boatReview.CreatedBy.Name} data-record-id={boatReview.CreatedBy.Id} onclick={navigateToRecord}>
+                      <a title={boatReview.CreatedBy.Name} data-record-id={boatReview.CreatedBy.Id} onclick={navigateToRecord}>
                         {boatReview.CreatedBy.Name}
                       </a>
                       <!-- display creator’s company name -->

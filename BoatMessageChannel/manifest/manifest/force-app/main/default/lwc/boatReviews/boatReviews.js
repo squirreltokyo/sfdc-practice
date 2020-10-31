@@ -5,7 +5,7 @@ import { refreshApex } from '@salesforce/apex';
 
 export default class BoatReviews extends NavigationMixin(LightningElement) {
   // Private
-  boatId;
+  @api boatId;
   error;
   boatReviews = [];
   isLoading = false;
@@ -21,13 +21,15 @@ export default class BoatReviews extends NavigationMixin(LightningElement) {
     this.setAttribute('boatId', value);
     //sets boatId assignment
     this.boatId = value;
+    console.log('#### boatReviews boatId>>>' + this.boatId);
     //get reviews associated with boatId
     this.getReviews();
+    console.log('#### boatReviews list>>>' + this.boatReviews);
   }
 
   // Getter to determine if there are reviews to display
   get reviewsToShow() {
-    return this.boatReviews && this.boatReviews.length > 0 ? true : false;
+    return (this.boatReviews && this.boatReviews.length > 0) ? true : false;
   }
 
   // Public method to force a refresh of the reviews invoking getReviews
@@ -41,12 +43,12 @@ export default class BoatReviews extends NavigationMixin(LightningElement) {
   // sets isLoading to true during the process and false when it’s completed
   // Gets all the boatReviews from the result, checking for errors.
   getReviews() {
-    if (this.boatId=='' || this.boatId==null) {
+    if (this.boatId == '' || this.boatId == null) {
       return;
     }
     this.isLoading = true;
     this.error = undefined;
-    this.boatReviews = getAllReviews(boatId);
+    this.boatReviews = getAllReviews(this.boatId);
     getAllReviews({ boatId: this.recordId })
       .then(result => {
         this.boatReviews = result;
