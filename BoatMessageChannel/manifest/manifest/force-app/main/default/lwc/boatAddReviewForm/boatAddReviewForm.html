@@ -1,26 +1,29 @@
 <template>
     <!-- lightning data service code -->
     <!-- <lightning-record-edit-form> using boatReviewObject -->
-    <lightning-record-edit-form record-id={recordId} object-api-name="BoatReview__c" onsuccess={handleSuccess} onsubmit={handleSubmit}>
+    <lightning-record-edit-form object-api-name="BoatReview__c" onsuccess={handleSuccess} onsubmit={handleSubmit}>
       <lightning-layout multiple-rows vertical-align="start">
+        <!--review subject--> 
         <lightning-layout-item size="8" padding="horizontal-small">
           <div class="slds-form-element">
              <!-- review subject field code using nameField -->
-             <lightning-input-field label={labelSubject} field-name={nameField} class="slds-form-element__label" label-hidden></lightning-input-field>
+             <lightning-input-field label={labelSubject} field-name={nameField} class="slds-form-element__label" required="true"></lightning-input-field>
           </div>
         </lightning-layout-item>
+        <!--five star rating component-->
         <lightning-layout-item size="4" padding="horizontal-small">
           <div class="slds-form-element">
             <label class="slds-form-element__label" for="record-name">Rating</label>
             <div class="slds-form-element__control">
               <!-- add five star rating component -->
-              <c-five-star-rating onratingchange={handleRatingChanged}></c-five-star-rating>
+              <c-five-star-rating label={labelRating} onratingchange={handleRatingChanged}></c-five-star-rating>
             </div>
           </div>
         </lightning-layout-item>
+        <!--comment-->
         <lightning-layout-item padding="horizontal-small">
              <!-- review comment field code using commentField -->
-             <lightning-input-field field-name={commentField}></lightning-input-field>
+             <lightning-input-field label={labelComment} value={comment} field-name={commentField} class="slds-form-element__label" required="true"></lightning-input-field>
         </lightning-layout-item>
       </lightning-layout>
       <div class="slds-align_absolute-center" style="margin-top: 5px">

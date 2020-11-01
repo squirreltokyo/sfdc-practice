@@ -17,11 +17,14 @@ const SUCCESS_VARIANT = 'success';
 
 export default class BoatAddReviewForm extends LightningElement {
     // Private
-    @api boatId;
-    @api rating = 0;
+    boatId;
+    rating = 0;
+    comment;
     boatReviewObject = BOAT_REVIEW_OBJECT;
     nameField = NAME_FIELD;
     commentField = COMMENT_FIELD;
+    ratingField = RATING_FIELD;
+    boatField = BOAT_FIELD;
     labelSubject = 'Review Subject';
     labelRating = 'Rating';
     labelComment = 'Comment';
@@ -47,10 +50,12 @@ export default class BoatAddReviewForm extends LightningElement {
     // This function must prevent the anchor element from navigating to a URL.
     // form to be submitted: lightning-record-edit-form
     handleSubmit(event) {
-        event.preventDefault();   
+        event.preventDefault();
         const fields= event.detail.fields;
         fields.Boat__c = this.recordId();
+        fields.Name = this.nameField;
         fields.Rating__c = this.rating;
+        fields.Comment__c = this.comment;
         this.template.querySelector('lightning-record-edit-form').submit(fields);
     }
 
