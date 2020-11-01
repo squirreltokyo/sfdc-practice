@@ -21,10 +21,8 @@ export default class BoatReviews extends NavigationMixin(LightningElement) {
     this.setAttribute('boatId', value);
     //sets boatId assignment
     this.boatId = value;
-    console.log('#### boatReviews boatId>>>' + this.boatId);
     //get reviews associated with boatId
     this.getReviews();
-    console.log('#### boatReviews list>>>' + this.boatReviews);
   }
 
   // Getter to determine if there are reviews to display

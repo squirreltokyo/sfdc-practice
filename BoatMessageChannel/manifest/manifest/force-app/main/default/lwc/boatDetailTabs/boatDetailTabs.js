@@ -46,7 +46,7 @@ export default class BoatDetailTabs extends NavigationMixin(LightningElement) {
   }
 
   // Utilize getFieldValue to extract the boat name from the record wire
-  get boatName() {
+  @api get boatName() {
     return getFieldValue(this.wiredRecord.data, BOAT_NAME_FIELD);
   }
 
