@@ -16,14 +16,14 @@
             <label class="slds-form-element__label" for="record-name">Rating</label>
             <div class="slds-form-element__control">
               <!-- add five star rating component -->
-              <c-five-star-rating label={labelRating} onratingchange={handleRatingChanged}></c-five-star-rating>
+              <c-five-star-rating label={labelRating} value={rating} onratingchange={handleRatingChanged}></c-five-star-rating>
             </div>
           </div>
         </lightning-layout-item>
         <!--comment-->
         <lightning-layout-item padding="horizontal-small">
              <!-- review comment field code using commentField -->
-             <lightning-input-field label={labelComment} value={comment} field-name={commentField} class="slds-form-element__label" required="true"></lightning-input-field>
+             <lightning-input-field label={labelComment} field-name={commentField} class="slds-form-element__label" required="true"></lightning-input-field>
         </lightning-layout-item>
       </lightning-layout>
       <div class="slds-align_absolute-center" style="margin-top: 5px">

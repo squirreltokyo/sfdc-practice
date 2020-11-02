@@ -21,6 +21,7 @@ export default class BoatsNearMe extends LightningElement {
     wiredBoatsJSON({ error, data }) {
         if (data) {
             this.createMapMarkers(data);
+            this.isLoading = false;
         } else if (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
@@ -38,8 +39,8 @@ export default class BoatsNearMe extends LightningElement {
     renderedCallback() {
         if (this.isRendered == false) {
             this.getLocationFromBrowser();
-        }
-        this.isRendered = true;
+            this.isRendered = true;
+        }    
     }
 
     // Gets the location from the Browser
@@ -60,7 +61,7 @@ export default class BoatsNearMe extends LightningElement {
     createMapMarkers(boatData) {
         // const newMarkers = boatData.map(boat => {...});
         // newMarkers.unshift({...});
-        this.mapMarkers = boatData.map(rowBoat => {
+        this.mapMarkers = JSON.parse(boatData).map(rowBoat => {
             return {
                 location: {
                     Latitude: rowBoat.Geolocation__Latitude__s,
@@ -77,6 +78,5 @@ export default class BoatsNearMe extends LightningElement {
             title: LABEL_YOU_ARE_HERE,
             icon: ICON_STANDARD_USER
         });
-        this.isLoading = false;
     }
 }
